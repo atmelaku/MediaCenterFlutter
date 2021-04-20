@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Baby Names",
+      title: "Media Center App",
       home: HomePage(),
     );
   }
