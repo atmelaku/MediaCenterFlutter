@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mediacenterflutter/auth/login.dart';
 import 'package:mediacenterflutter/auth/signup.dart';
+import 'package:mediacenterflutter/post/createPost.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -31,6 +32,13 @@ class _HomePageState extends State<HomePage> {
                     MaterialPageRoute(builder: (context) => SignUpPage()),
                   );
                 }, child: Container(child: Text("Sign Up")) ),
+            GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CreatePost()),
+                  );
+                }, child: Container(child: Text("Create Post")) ),
           ],
         )
       ),
