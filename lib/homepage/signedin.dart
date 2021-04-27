@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mediacenterflutter/auth/auth.dart';
-import 'package:mediacenterflutter/models/user_list.dart';
 import 'homepage.dart';
 
 class signedInPage extends StatefulWidget {
