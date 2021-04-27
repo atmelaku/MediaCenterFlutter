@@ -1,81 +1,133 @@
-import 'package:flutter/material.dart';
-import 'dart:math';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'login.dart';
+import 'package:flutter/material.dart';
+import 'package:mediacenterflutter/auth/auth.dart';
+import 'package:mediacenterflutter/auth/login.dart';
 
 class SignUpPage extends StatefulWidget {
+
+
   @override
-  _SignUpPageState createState() {
-    return _SignUpPageState();
+  _SignUpState createState() {
+    return _SignUpState();
   }
 }
 
-final firstNameController = TextEditingController();
-final lastNameController = TextEditingController();
-final usernameController = TextEditingController();
-final passwordController = TextEditingController();
-final emailController = TextEditingController();
-final dateController = TextEditingController();
+class _SignUpState extends State<SignUpPage> {
 
-Random random = new Random();
-int randomNumber = random.nextInt(1000);
+  final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
 
-final firestoreInstance = FirebaseFirestore.instance;
-
-class _SignUpPageState extends State<SignUpPage> {
+  //text field state
+  String firstName = "";
+  String lastName = "";
+  String email = "";
+  String password = "";
+  String error = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Sign Up')),
-      body: Column(children: <Widget>[
-        TextField(
-          controller: firstNameController,
-          decoration: InputDecoration(hintText: 'First Name'),
+      backgroundColor: Colors.green[100],
+
+      appBar: AppBar(
+          backgroundColor: Colors.green[400],
+          elevation: 0.0,
+          title: Text('Register Page')),
+      body: Container(
+        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              SizedBox(height: 20),
+              TextFormField(
+                decoration: InputDecoration(
+                  hintText: "First Name",
+                  fillColor: Colors.white,
+                  filled: true,
+                ),
+
+                onChanged: (val) {
+                  setState(() => firstName = val);
+                },
+              ),
+              SizedBox(height: 20),
+              TextFormField(
+                decoration: InputDecoration(
+                  hintText: "Last Name",
+                  fillColor: Colors.white,
+                  filled: true,
+                ),
+                onChanged: (val) {
+                  setState(() => lastName = val);
+                },
+              ),
+              SizedBox(height: 20),
+              TextFormField(
+                decoration: InputDecoration(
+                  hintText: "Email",
+                  fillColor: Colors.white,
+                  filled: true,
+                ),
+                // check if the field is not empty  
+                validator: (val) => val.isEmpty ? "Enter an email" : null,
+                onChanged: (val) {
+                  setState(() => email = val);
+                },
+              ),
+              SizedBox(height: 20),
+              TextFormField(
+                decoration: InputDecoration(
+                  hintText: "Password",
+                  fillColor: Colors.white,
+                  filled: true,
+                ),
+                // check if the password char is loger than six char
+                validator: (val) => val.length < 6 ? "Enter 6+ character " : null,
+                obscureText: true,
+                onChanged: (val) {
+                  setState(() => password = val);
+                },
+              ),
+              SizedBox(height: 20),
+              RaisedButton(
+                color: Colors.red[400],
+                child: Text(
+                  "Sign Up",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+
+                ),
+                onPressed: () async {
+                  // if its validated we can register
+                  if (_formKey.currentState.validate()){
+                    dynamic result = await _auth.registerWithEmailAndPassword(firstName, lastName, email, password);
+                    // if result is  null meaning we are not able to register
+                    if(result == null) {
+                      setState(() {
+                        error = "please enter a valid email";
+                      });
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginPage()),
+                      );
+                    }
+
+                  }
+
+                },
+              ),
+              SizedBox(height: 12),
+              Text(error,
+                style: TextStyle(
+                  color: Colors.red, fontSize: 14.0,
+                ),
+
+              )
+            ],
+          ),
         ),
-        TextField(
-          controller: lastNameController,
-          decoration: InputDecoration(hintText: 'Last Name'),
-        ),
-        TextField(
-          controller: usernameController,
-          decoration: InputDecoration(hintText: 'username'),
-        ),
-        TextField(
-          controller: passwordController,
-          decoration: InputDecoration(hintText: 'password'),
-        ),
-        TextField(
-          controller: emailController,
-          decoration: InputDecoration(hintText: 'email'),
-        ),
-        TextField(
-          controller: dateController,
-          decoration: InputDecoration(hintText: 'date of birth'),
-        ),
-      ]),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          firestoreInstance.collection("profile").add({
-            "first_name": firstNameController.text,
-            "last_name": lastNameController.text,
-            "date_of_birth": dateController.text,
-            "user_ID": randomNumber,
-          });
-          firestoreInstance.collection("users").add({
-            "username": usernameController.text,
-            "password": passwordController.text,
-            "email": emailController.text,
-            "id": randomNumber,
-            "role": "user",
-          });
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => LoginPage()),
-          );
-        },
-        tooltip: 'Sign Up',
-        child: Icon(Icons.text_fields),
       ),
     );
   }
