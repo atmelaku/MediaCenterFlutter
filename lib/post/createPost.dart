@@ -66,6 +66,7 @@ class _CreatePostState extends State<CreatePost> {
                     });
                     ScaffoldMessenger.of(context)
                         .showSnackBar(SnackBar(content: Text('Post Successful!')));
+                    dispose();
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => signedInPage()),
