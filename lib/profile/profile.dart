@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mediacenterflutter/models/profile.dart';
+import 'editprofile.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -24,6 +25,11 @@ class _ProfileState extends State<ProfilePage> {
             floatingActionButton: FloatingActionButton(
               elevation: 10.0,
               child: Icon(Icons.edit),
+              onPressed: () {
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => EditProfilePage()),
+                );
+              },
             ),
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: 0,
