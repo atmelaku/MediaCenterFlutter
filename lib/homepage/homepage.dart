@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mediacenterflutter/auth/login.dart';
 import 'package:mediacenterflutter/auth/signup.dart';
-// home page State full widget 
+import 'package:mediacenterflutter/post/createPost.dart';
+
+// home page State full widget
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() {
@@ -56,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                     context,
                     MaterialPageRoute(builder: (context) => SignUpPage()),
                   );
-                }, 
+                },
                 child: Container(
                   margin: EdgeInsets.only(top: 50.0),
                   height: 40,
@@ -69,8 +71,8 @@ class _HomePageState extends State<HomePage> {
 
                       child: Text("Sign Up",
                         style: TextStyle(fontSize: 20, color: Colors.white),
-                  )
-                ) 
+                  ),
+                ),
               ),
           ],
         )

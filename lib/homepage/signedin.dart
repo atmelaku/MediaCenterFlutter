@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mediacenterflutter/post/createPost.dart';
 import 'package:mediacenterflutter/auth/auth.dart';
 import 'homepage.dart';
 
@@ -43,7 +44,17 @@ class _signedInState extends State<signedInPage> {
 
       ),
       body: Container(
-        child: Text("welcome"),
+          child: Column(
+            children: [
+              GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CreatePost()),
+                    );
+                  }, child: Container(child: Text("Create Post")) ),
+            ],
+          )
       ),
       );
   }
