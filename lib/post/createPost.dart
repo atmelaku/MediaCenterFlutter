@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mediacenterflutter/homepage/signedin.dart';
 
@@ -61,8 +62,9 @@ class _CreatePostState extends State<CreatePost> {
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
                     FirebaseFirestore.instance.collection('posts').add({
-                      'title': titleController.text,
-                      'desc': descController.text,
+                      'userId': FirebaseAuth.instance.currentUser.uid,
+                     'title': titleController.text,
+                     'desc': descController.text,
                     });
                     ScaffoldMessenger.of(context)
                         .showSnackBar(SnackBar(content: Text('Post Successful!')));
