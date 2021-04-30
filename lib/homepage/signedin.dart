@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mediacenterflutter/post/createPost.dart';
 import 'package:mediacenterflutter/auth/auth.dart';
@@ -43,19 +44,69 @@ class _signedInState extends State<signedInPage> {
         ],
 
       ),
-      body: Container(
-          child: Column(
-            children: [
-              GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => CreatePost()),
-                    );
-                  }, child: Container(child: Text("Create Post")) ),
-            ],
-          )
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            ListTile(
+            
+          ),
+            ListTile(
+
+            ),
+            ListTile(
+
+            )
+        ],
+        )
       ),
+      body:  _buildBody(context)
+      //   Container(
+      //     child: Column(
+      //       children: [
+      //         GestureDetector(
+      //             onTap: () {
+      //               Navigator.push(
+      //                 context,
+      //                 MaterialPageRoute(builder: (context) => CreatePost()),
+      //               );
+      //             }, child: Container(child: Text("Create Post")) ),
+      //       ],
+      //     )
+      // ),
       );
+  }
+
+  _buildListItem(Map post) {
+    return ListTile(
+      title: Text(post["title"]),
+      subtitle: Text(post['desc']),
+    );
+  }
+
+  _buildList(List<Map> posts) {
+    List<ListTile> listTiles = [];
+    for (Map post in posts) {
+      listTiles.add(_buildListItem(post));
+    }
+    return ListView(
+      children: <Widget>[
+        ...listTiles,
+      ],
+    );
+  }
+
+  _buildBody(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection('posts').snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return LinearProgressIndicator();
+
+        List<Map> posts = [];
+        for(DocumentSnapshot doc in snapshot.data.docs) {
+          posts.add(doc.data());
+        }
+        return _buildList(posts);
+      }
+    );
   }
 }
