@@ -14,14 +14,7 @@ class _CreatePostState extends State<CreatePost> {
   final _formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
   final descController = TextEditingController();
-
-  @override
-  void dispose() {
-    titleController.dispose();
-    descController.dispose();
-    super.dispose();
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +61,6 @@ class _CreatePostState extends State<CreatePost> {
                     });
                     ScaffoldMessenger.of(context)
                         .showSnackBar(SnackBar(content: Text('Post Successful!')));
-                    dispose();
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => signedInPage()),
