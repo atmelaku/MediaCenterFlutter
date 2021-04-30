@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mediacenterflutter/profile/profile.dart';
+import 'package:mediacenterflutter/post/createPost.dart';
 import 'package:mediacenterflutter/auth/auth.dart';
 import 'homepage.dart';
-
 
 class signedInPage extends StatefulWidget {
   @override
@@ -16,46 +16,55 @@ class _signedInState extends State<signedInPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: AppBar(title: Text('Welcome Back'),
+      appBar: AppBar(
+        title: Text('Welcome Back'),
         actions: <Widget>[
           FlatButton.icon(
-            icon: Icon(Icons.person,),
+            icon: Icon(
+              Icons.person,
+            ),
             label: Container(
               child: ElevatedButton(
-                child: Text(
-                    "Log out"
-                ),
+                child: Text("Log out"),
                 onPressed: () {
-                  Navigator.push(context,
+                  Navigator.push(
+                    context,
                     MaterialPageRoute(builder: (context) => HomePage()),
                   );
                 },
               ),
             ),
-            onPressed: () async{
+            onPressed: () async {
               await _auth.signOut();
-
             },
-
           ),
-
         ],
-
       ),
       body: Container(
-
-          child: Container( child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ProfilePage()),
-                );
-              }, child: Container(child: Text("Profile")) )
+          child: Column(
+        children: [
+          Container(
+              child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ProfilePage()),
+                    );
+                  },
+                  child: Container(child: Text("Profile")))),
+          Container(
+            child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CreatePost()),
+                  );
+                },
+                child: Container(child: Text("Create Post"))),
           )
-
-      ),
-      );
+        ],
+      )),
+    );
   }
 }
