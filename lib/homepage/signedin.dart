@@ -44,15 +44,46 @@ class _signedInState extends State<signedInPage> {
       ),
       drawer: Drawer(
         child: ListView(
+          padding: EdgeInsets.zero,
           children: [
-            ListTile(
-            
-          ),
-            ListTile(
-
+            Container(
+              height: 80,
+              child: DrawerHeader(
+                child: Text('Options'),
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                ),
+              ),
             ),
             ListTile(
-
+              leading: Icon(Icons.home),
+              title: Text('Homepage'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => signedInPage())
+                );
+              }
+          ),
+            ListTile(
+              leading: Icon(Icons.person),
+              title: Text('Profile'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfilePage())
+                );
+              }
+            ),
+            ListTile(
+              leading: Icon(Icons.post_add),
+              title: Text('Create New Post'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CreatePost())
+                );
+              }
             )
         ],
         )
