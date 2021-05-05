@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mediacenterflutter/post/viewPost.dart';
 import 'package:mediacenterflutter/profile/profile.dart';
 import 'package:mediacenterflutter/post/createPost.dart';
 import 'package:mediacenterflutter/auth/auth.dart';
@@ -96,6 +98,13 @@ class _signedInState extends State<signedInPage> {
     return ListTile(
       title: Text(post["title"]),
       subtitle: Text(post['desc']),
+      onTap: () => {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ViewPost())
+            // FirebaseAuth.instance.currentUser.uid
+        )
+      },
     );
   }
 
