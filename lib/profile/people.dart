@@ -5,6 +5,7 @@ import 'package:mediacenterflutter/homepage/signedin.dart';
 import 'package:mediacenterflutter/profile/profile.dart';
 import 'package:mediacenterflutter/post/createPost.dart';
 import 'package:mediacenterflutter/auth/auth.dart';
+import 'package:mediacenterflutter/profile/viewprofile.dart';
 
 class PeoplePage extends StatefulWidget {
   @override
@@ -103,16 +104,24 @@ class _PeopleState extends State<PeoplePage> {
     );
   }
 
-  _buildListItem(Map post) {
+  _buildListItem(Map person, List profile, int num) {
     return ListTile(
-      title: Text(post["firstName"] + " " + post["lastName"]),
+      title: Text(person["firstName"] + " " + person["lastName"] + " " + profile[num]),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ViewProfilePage(profile[num])),
+        );
+      },
     );
   }
 
-  _buildList(List<Map> posts) {
+  _buildList(List<Map> people, List profile) {
     List<ListTile> listTiles = [];
-    for (Map post in posts) {
-      listTiles.add(_buildListItem(post));
+    int num = 0;
+    for (Map person in people) {
+      listTiles.add(_buildListItem(person, profile, num));
+      num++;
     }
     return ListView(
       children: <Widget>[
@@ -127,11 +136,13 @@ class _PeopleState extends State<PeoplePage> {
         builder: (context, snapshot) {
           if (!snapshot.hasData) return LinearProgressIndicator();
 
-          List<Map> posts = [];
+          List<Map> people = [];
+          List profile = [];
           for(DocumentSnapshot doc in snapshot.data.docs) {
-            posts.add(doc.data());
+            people.add(doc.data());
+            profile.add(doc.id);
           }
-          return _buildList(posts);
+          return _buildList(people, profile);
         }
     );
   }
