@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mediacenterflutter/post/viewPost.dart';
+import 'package:mediacenterflutter/profile/people.dart';
 import 'package:mediacenterflutter/profile/profile.dart';
 import 'package:mediacenterflutter/post/createPost.dart';
 import 'package:mediacenterflutter/auth/auth.dart';
@@ -76,6 +76,16 @@ class _signedInState extends State<signedInPage> {
                   MaterialPageRoute(builder: (context) => ProfilePage())
                 );
               }
+            ),
+            ListTile(
+                leading: Icon(Icons.person),
+                title: Text('People'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PeoplePage())
+                  );
+                }
             ),
             ListTile(
               leading: Icon(Icons.post_add),

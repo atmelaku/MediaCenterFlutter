@@ -7,16 +7,19 @@ import 'package:mediacenterflutter/homepage/signedin.dart';
 import 'package:mediacenterflutter/models/profile.dart';
 import 'package:mediacenterflutter/post/createPost.dart';
 import 'package:mediacenterflutter/profile/people.dart';
-import 'editprofile.dart';
+import 'package:mediacenterflutter/profile/profile.dart';
 
-class ProfilePage extends StatefulWidget {
+class ViewProfilePage extends StatefulWidget {
+  final String profileID;
+  ViewProfilePage(this.profileID);
+
   @override
-  _ProfileState createState() {
-    return _ProfileState();
+  _ViewProfileState createState() {
+    return _ViewProfileState();
   }
 }
 
-class _ProfileState extends State<ProfilePage> {
+class _ViewProfileState extends State<ViewProfilePage> {
   final AuthService _auth = AuthService();
 
   @override
@@ -25,7 +28,7 @@ class _ProfileState extends State<ProfilePage> {
     return MaterialApp(
         home: Scaffold(
             appBar: AppBar(
-              title: Text('Your Profile'),
+              title: Text('Profile'),
               backgroundColor: Colors.orange,
               actions: <Widget>[
                 FlatButton.icon(
@@ -105,15 +108,6 @@ class _ProfileState extends State<ProfilePage> {
                   ],
                 )
             ),
-            floatingActionButton: FloatingActionButton(
-              elevation: 10.0,
-              child: Icon(Icons.edit),
-              onPressed: () {
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => EditProfilePage()),
-                );
-              },
-            ),
             body: Container(
                 decoration: BoxDecoration(color: Colors.orange),
                 child: Column(
@@ -123,72 +117,72 @@ class _ProfileState extends State<ProfilePage> {
                           alignment: Alignment.center,
                           decoration: BoxDecoration(),
                           child: GetUserName(
-                              FirebaseAuth.instance.currentUser.uid)),
+                              widget.profileID)),
                       Container(
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                            Container(
-                                alignment: Alignment.center,
-                                width: 300,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(20),
-                                    border: Border.all()),
-                                child: GetRelationship(
-                                    FirebaseAuth.instance.currentUser.uid)),
-                            Container(
-                                alignment: Alignment.center,
-                                width: 300,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(20),
-                                    border: Border.all()),
-                                child: GetPhone(
-                                    FirebaseAuth.instance.currentUser.uid)),
-                            Container(
-                                alignment: Alignment.center,
-                                width: 300,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(20),
-                                    border: Border.all()),
-                                child: GetDOB(
-                                    FirebaseAuth.instance.currentUser.uid)),
-                            Container(
-                                alignment: Alignment.center,
-                                width: 300,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(20),
-                                    border: Border.all()),
-                                child: GetJob(
-                                    FirebaseAuth.instance.currentUser.uid)),
-                            Container(
-                                alignment: Alignment.center,
-                                width: 300,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(20),
-                                    border: Border.all()),
-                                child: GetGender(
-                                    FirebaseAuth.instance.currentUser.uid)),
-                            Container(
-                                alignment: Alignment.center,
-                                width: 300,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(20),
-                                    border: Border.all()),
-                                child: GetLocation(
-                                    FirebaseAuth.instance.currentUser.uid)),
-                          ])),
+                                Container(
+                                    alignment: Alignment.center,
+                                    width: 300,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(20),
+                                        border: Border.all()),
+                                    child: GetRelationship(
+                                        widget.profileID)),
+                                Container(
+                                    alignment: Alignment.center,
+                                    width: 300,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(20),
+                                        border: Border.all()),
+                                    child: GetPhone(
+                                        widget.profileID)),
+                                Container(
+                                    alignment: Alignment.center,
+                                    width: 300,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(20),
+                                        border: Border.all()),
+                                    child: GetDOB(
+                                        widget.profileID)),
+                                Container(
+                                    alignment: Alignment.center,
+                                    width: 300,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(20),
+                                        border: Border.all()),
+                                    child: GetJob(
+                                        widget.profileID)),
+                                Container(
+                                    alignment: Alignment.center,
+                                    width: 300,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(20),
+                                        border: Border.all()),
+                                    child: GetGender(
+                                        widget.profileID)),
+                                Container(
+                                    alignment: Alignment.center,
+                                    width: 300,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(20),
+                                        border: Border.all()),
+                                    child: GetLocation(
+                                        widget.profileID)),
+                              ])),
                     ]))));
   }
 }
