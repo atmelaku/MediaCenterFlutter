@@ -106,7 +106,7 @@ class _PeopleState extends State<PeoplePage> {
 
   _buildListItem(Map person, List profile, int num) {
     return ListTile(
-      title: Text(person["firstName"] + " " + person["lastName"] + " " + profile[num]),
+      title: Text(person["firstName"] + " " + person["lastName"]),
       onTap: () {
         Navigator.push(
           context,
