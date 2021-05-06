@@ -94,24 +94,25 @@ class _signedInState extends State<signedInPage> {
     );
   }
 
-  _buildListItem(Map post) {
+  _buildListItem(Map post, List postIds, int num) {
     return ListTile(
       title: Text(post["title"]),
       subtitle: Text(post['desc']),
       onTap: () => {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ViewPost())
-            // FirebaseAuth.instance.currentUser.uid
+          MaterialPageRoute(builder: (context) => ViewPost(postIds[num], post['title'], post['desc'], post['userId']))
         )
       },
     );
   }
 
-  _buildList(List<Map> posts) {
+  _buildList(List<Map> posts, List postIds) {
     List<ListTile> listTiles = [];
+    int num = 0;
     for (Map post in posts) {
-      listTiles.add(_buildListItem(post));
+      listTiles.add(_buildListItem(post, postIds, num));
+      num++;
     }
     return ListView(
       children: <Widget>[
@@ -127,10 +128,12 @@ class _signedInState extends State<signedInPage> {
         if (!snapshot.hasData) return LinearProgressIndicator();
 
         List<Map> posts = [];
+        List postIds = [];
         for(DocumentSnapshot doc in snapshot.data.docs) {
           posts.add(doc.data());
+          postIds.add(doc.id);
         }
-        return _buildList(posts);
+        return _buildList(posts, postIds);
       }
     );
   }

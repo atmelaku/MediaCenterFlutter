@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mediacenterflutter/homepage/signedin.dart';
 
+
 class CreatePost extends StatefulWidget {
   @override
   _CreatePostState createState() {
@@ -14,7 +15,7 @@ class _CreatePostState extends State<CreatePost> {
   final _formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
   final descController = TextEditingController();
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

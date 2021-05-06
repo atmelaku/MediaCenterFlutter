@@ -2,8 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:mediacenterflutter/homepage/signedin.dart';
 import 'package:mediacenterflutter/post/createPost.dart';
 import 'package:mediacenterflutter/profile/profile.dart';
+import 'package:mediacenterflutter/models/profile.dart';
 
 class ViewPost extends StatefulWidget {
+  final String postId;
+  final String postTitle;
+  final String postDesc;
+  final String userId;
+  ViewPost(this.postId, this.postTitle, this.postDesc, this.userId);
+
+
+
   @override
   _ViewPostState createState() {
     return _ViewPostState();
@@ -14,6 +23,9 @@ class _ViewPostState extends State<ViewPost> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Viewing Post")
+      ),
       drawer: Drawer(
           child: ListView(
             padding: EdgeInsets.zero,
@@ -60,6 +72,24 @@ class _ViewPostState extends State<ViewPost> {
             ],
           )
       ),
+      body: Center(
+        child: Container(
+          child: Column(
+            children: [
+              GetUserName(widget.userId),
+              Text(widget.postTitle,
+              style: TextStyle(
+                fontSize: 30,
+              )),
+              Text(widget.postDesc,
+              style: TextStyle(
+                fontSize: 25,
+              )
+              ),
+            ],
+          )
+        ),
+      )
     );
   }
 
