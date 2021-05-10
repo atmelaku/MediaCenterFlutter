@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mediacenterflutter/homepage/signedin.dart';
 import 'package:mediacenterflutter/post/createPost.dart';
+import 'package:mediacenterflutter/profile/people.dart';
 import 'package:mediacenterflutter/profile/profile.dart';
 import 'package:mediacenterflutter/models/profile.dart';
 
@@ -62,6 +63,16 @@ class _ViewPostState extends State<ViewPost> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => ProfilePage())
+                      );
+                    }
+                ),
+                ListTile(
+                    leading: Icon(Icons.person),
+                    title: Text('People'),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => PeoplePage())
                       );
                     }
                 ),
