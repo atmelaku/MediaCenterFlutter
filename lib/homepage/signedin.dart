@@ -87,6 +87,7 @@ class _signedInState extends State<signedInPage> {
                   );
                 }
             ),
+
             ListTile(
               leading: Icon(Icons.post_add),
               title: Text('Create New Post'),
@@ -96,7 +97,8 @@ class _signedInState extends State<signedInPage> {
                   MaterialPageRoute(builder: (context) => CreatePost())
                 );
               }
-            )
+            ),
+
         ],
         )
       ),
