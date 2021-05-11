@@ -78,35 +78,82 @@ class _ViewPostState extends State<ViewPost> {
               ],
             )
         ),
-        body: Center(
-          child: Container(
+        body: SingleChildScrollView(
+        child: Container(
+            margin: EdgeInsets.all(20),
+              padding: EdgeInsets.only(left: 10),
+              decoration: new BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Colors.blue[100],
+              ),
               child: Column(
                 children: [
-                  GetUserName(widget.userId),
-                  Text(widget.postTitle,
-                      style: TextStyle(
-                        fontSize: 30,
-                      )),
-                  Text(widget.postDesc,
-                      style: TextStyle(
-                        fontSize: 25,
-                      )
-                  ),
+
                   Container(
+                    child: Row(
+                      children: [
+                        Container(
+                          height: 100,
+                          width: 70,
+                           child:  Image.network('https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png')
+                        ),
+
+                        Container(
+                          margin: EdgeInsets.only(left: 0, top: 30),
+                          alignment: Alignment.centerLeft,
+                          decoration: new BoxDecoration(
+
+                          ),
+                          child: GetUserName(widget.userId,
+                          ),
+                        ),
+
+                      ],
+                    ),
+                  ),
+
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    margin: EdgeInsets.only(left: 0),
+                    child:  Text(widget.postTitle,
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+
+                        )),
+                  ),
+                 Container(
+                   alignment: Alignment.centerLeft,
+                   child: Text(widget.postDesc,
+                       style: TextStyle(
+                         fontSize: 20,
+                       )
+                   ),
+                 ),
+
+                  Container(
+                    margin: EdgeInsets.only(top: 10),
                     child: Column(
                       children: [
                         Form(
+
                             key: _formKey,
                             child: Row(
                               children: [
+
                                 Container(
-                                  height: 40,
-                                  width: 160.0,
+                                  margin: EdgeInsets.only(left: 10),
+                                  height: 35,
+                                  width: 200.0,
                                   child: TextFormField(
                                     controller: commentController,
                                     decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      labelText: 'comment',
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20)
+                                      ),
+                                      labelText: 'leave a comment',
+
+
                                     ),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
@@ -117,7 +164,12 @@ class _ViewPostState extends State<ViewPost> {
                                   ),
                                 ),
                                 Container(
+
+                                  margin: EdgeInsets.only(left: 10),
                                   child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.purple,
+                                    ),
                                     onPressed: () {
                                       if (_formKey.currentState.validate()) {
                                         FirebaseFirestore.instance.collection(
@@ -139,7 +191,7 @@ class _ViewPostState extends State<ViewPost> {
                                         );
                                       }
                                     },
-                                    child: Text("create comment"),
+                                    child: Text("post"),
                                   ),
                                 ),
 
@@ -149,6 +201,7 @@ class _ViewPostState extends State<ViewPost> {
 
                         ),
                         Container(
+
                           child: _buildBody(context),
                         )
                       ],
@@ -158,8 +211,7 @@ class _ViewPostState extends State<ViewPost> {
 
                 ],
               )
-          ),
-        )
+        )  ),
     );
   }
 
@@ -168,7 +220,23 @@ class _ViewPostState extends State<ViewPost> {
 
   _buildListItem(Map comment, List commentIds, int num) {
     return ListTile(
-      title: GetUserName(comment["userId"]),
+
+      title: Container(
+        margin: EdgeInsets.only(top: 10),
+        child: Row(
+          children: [
+            Container(height: 50,
+                width: 50,
+                child:  Image.network('https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png')
+            ),
+
+            Container(
+              child: GetUserName(comment["userId"]),
+            ),
+
+          ],
+        ),
+      ),
       subtitle: Text(comment["comment"]),
     );
   }
